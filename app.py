@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from enum import Enum
 from typing import Literal
 
@@ -42,6 +42,16 @@ def stationary(name: Stationary):
 def colors(color_name: Literal['red', 'green', 'blue']):
     return {'message': f'You requested {color_name}'}
 
+
+@app.get('/products/{product_id}')
+def products(product_id: int = Path(
+    ...,
+    gt=0,
+    lt=10,
+    description='Product ID',
+    title='Product ID'
+)):
+    return {'product_id': product_id}
 
 
 if __name__ == '__main__':
