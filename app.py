@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from enum import Enum
+from typing import Literal
 
 app = FastAPI()
 
@@ -35,6 +36,11 @@ class Stationary(Enum):
 @app.get('/stationary/{name}')
 def stationary(name: Stationary):
     return {'message': f'You requested stationary {name}'}
+
+
+@app.get('/colors/{color_name}')
+def colors(color_name: Literal['red', 'green', 'blue']):
+    return {'message': f'You requested {color_name}'}
 
 
 
